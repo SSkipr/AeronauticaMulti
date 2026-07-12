@@ -61,4 +61,4 @@ Full endpoint notes and rate limits are shared in Discord after approval. See al
 
 ## Version
 
-Current version: **1.0.0**
+Current version: **1.2.4**

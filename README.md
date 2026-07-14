@@ -20,7 +20,7 @@ Look for the AeroMulti multiplier channel after you join. No setup required - ju
 
 ## API access (exclusive)
 
-The backend exposes `GET /api/aeromulti` for recent server multiplier readings from our database. This is **not public** - access is granted on a case-by-case basis. These are the most up to date readings.**
+The backend exposes `GET /api/aeromulti` for recent server multiplier readings from our database. This is **not public** - access is granted on a case-by-case basis. These are the most up to date readings.
 
 **How to request access:**
 
@@ -43,11 +43,36 @@ Full endpoint notes and rate limits are shared in Discord after approval. See al
 
 ---
 
+## Scanner (operators)
+
+The live scanner used for Discord/API ingest is **`AeroMulti/`** in this repo (not a public download).
+
+**Flow (high level):**
+
+1. Launch Aeronautica homepage and inventory server IDs (scroll; no page cache)
+2. For each server: relaunch → join from top of list → clear teleport queue if needed
+3. Optional **Return to Airport** (can be disabled in the UI)
+4. Play → Jobs → search Leovetsk → Standard multi
+5. Track pass (Leovetsk-Auchenburgh) → Back → Play → Jobs on miss
+6. Discord + local JSON + optional API ingest
+
+**Notable v2 behavior:**
+
+- WinRT OCR first; EasyOCR only when WinRT misses expected text/boxes
+- Stable UI click coords saved to `AeroMulti.env` (`AEROMULTI_UI_*`)
+- Homepage ready poll up to **60s** (every 2s)
+- Kill lists and “Ignore Return to Airport” persist in `AeroMulti.env`
+- Secrets/webhooks stay in `AeroHelper.env`
+
+Legacy scanner code remains under `AeroMulti/` for reference; prefer **AeroMulti**.
+
+---
+
 ## Important notes
 
 - AeroMulti is a **community tool by AeroHelper**, not affiliated with or endorsed by Aeronautica staff.
 - Multipliers are **OCR-based** - always verify in-game before committing to a route.
-- The AeroMulti **scanner app is not distributed** from this repo or the website. This repository documents the project; live data comes from Discord and the API.
+- The AeroMulti **scanner app is not distributed** as a public release from the website. This repository documents the project; live data for the community comes from Discord and the API.
 
 ---
 
@@ -61,4 +86,4 @@ Full endpoint notes and rate limits are shared in Discord after approval. See al
 
 ## Version
 
-Current version: **1.2.4**
+Current version: **v2.0.0**

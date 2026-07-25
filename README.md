@@ -37,7 +37,7 @@ Full endpoint notes and rate limits are shared in Discord after approval. See al
 ## What you get
 
 - **Per-server multipliers** for active Aeronautica homepage servers
-- **Standard route** and **Leovetsk-Auchenburgh track** readings where detected
+- **Standard route** (min–max range from Transport-to job samples) and **Leovetsk-Auchenburgh track** readings where detected
 - **Regular Discord updates** frequently
 - **Optional API access** for bots, dashboards, or your own tools (ticket required)
 
@@ -52,16 +52,20 @@ The live scanner used for Discord/API ingest is **`AeroMulti/`** in this repo (n
 1. Launch Aeronautica homepage and inventory server IDs (scroll; no page cache)
 2. For each server: relaunch → join from top of list → clear teleport queue if needed
 3. Optional **Return to Airport** (can be disabled in the UI)
-4. Play → Jobs → search Leovetsk → Standard multi
-5. Track pass (Leovetsk-Auchenburgh) → Back → Play → Jobs on miss
+4. Play → Jobs → sample 5 Transport-to rows (Standard min–max range; cache JobRow slots; Play→Jobs retry on empty)
+5. Search Leovetsk → track pass (Leovetsk-Auchenburgh) → Back → Play → Jobs on miss
 6. Discord + local JSON + optional API ingest
 
-**Notable v2 behavior:**
+**Notable v2.1 behavior:**
 
+- **Standard range**: sample 5 Transport-to job rows → min–max (e.g. `1.2x` or `1.2x-1.5x`); Play→Jobs retry on empty
+- JobRow1–5 click caches; Search/JobRow caches clear on track miss or empty Standard retry
+- Jobs UI ROI locked to the **left panel** (Search + list); ignores center Airport Modifiers / HUD
+- Server browser: stronger Server ID OCR (hex-like IDs), Join/Queue pairing, focus-once then wheel scroll
+- Fail recovery: one retry pass that keeps priors already found; empty-homepage streak closes Roblox and recovers
 - WinRT OCR first; EasyOCR only when WinRT misses expected text/boxes
-- Stable UI click coords saved to `AeroMulti.env` (`AEROMULTI_UI_*`)
 - Homepage ready poll up to **60s** (every 2s)
-- Kill lists and “Ignore Return to Airport” persist in `AeroMulti.env`
+- Kill lists and "Ignore Return to Airport" persist in `AeroMulti.env`
 - Secrets/webhooks stay in `AeroHelper.env`
 
 Legacy scanner code remains under `AeroMulti/` for reference; prefer **AeroMulti**.
@@ -86,4 +90,4 @@ Legacy scanner code remains under `AeroMulti/` for reference; prefer **AeroMulti
 
 ## Version
 
-Current version: **v2.0.0**
+Current version: **v2.1.0**

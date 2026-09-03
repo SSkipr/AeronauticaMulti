@@ -12,6 +12,8 @@ AeroMulti scans [Aeronautica](https://www.roblox.com/games/6647962258/UPD-Aerona
 
 Each update lists alive servers with their latest multipliers (Standard and Leovetsk-Auchenburgh track routes), so you always have a fresh snapshot without running anything locally.
 
+Want a ping when a server hits a multiplier you care about? Join Discord and run **`/notify`** — pick one threshold (1.3x / 1.5x / 2x / 2.3x / 2.5x) and Standard, Leovetsk-Auchenburgh, or both.
+
 **[Join the Discord server →](https://discord.gg/acdQ6BFrFs)**
 
 Look for the AeroMulti multiplier channel after you join. No setup required - just read the feed.
@@ -39,6 +41,7 @@ Full endpoint notes and rate limits are shared in Discord after approval. See al
 - **Per-server multipliers** for active Aeronautica homepage servers
 - **Standard route** (min–max range from Transport-to job samples) and **Leovetsk-Auchenburgh track** readings where detected
 - **Regular Discord updates** frequently
+- **`/notify` pings** in Discord when a scanned server hits your threshold (once per server per day)
 - **Optional API access** for bots, dashboards, or your own tools (ticket required)
 
 ---
@@ -55,6 +58,24 @@ The live scanner used for Discord/API ingest is **`AeroMulti/`** in this repo (n
 4. Play → Jobs → sample 5 Transport-to rows (Standard min–max range; cache JobRow slots; Play→Jobs retry on empty)
 5. Search Leovetsk → track pass (Leovetsk-Auchenburgh) → Back → Play → Jobs on miss
 6. Discord + local JSON + optional API ingest
+
+**Notable v2.2.3 behavior:**
+
+- Discord **`/notify`**: opt in to multiplier pings (1.3x / 1.5x / 2x / 2.3x / 2.5x) for Standard, Leovetsk-Auchenburgh, or both
+- Bot polls live AeroMulti readings about every 5 minutes and pings matching users **once per server per day**
+- Alert titles show the highest notify floor the reading clears (`Above 1.5x · server id`); if that server drops off the scan, the same message is edited to `Died`
+- Notify / AeroMulti channels are wiped at midnight America/New_York
+
+**Notable v2.2.2 behavior:**
+
+- WinRT OCR no longer crashes when EasyOCR is deferred (`_windows_loop` init)
+- Multipliers above **2.5x** are rejected and re-OCR'd (up to 3 attempts)
+- Optional **Debug** checkbox: full OCR in `AeroMulti.log` when on; off logs counts only, plus a short OCR dump around errors
+
+**Notable v2.2 behavior:**
+
+- Homepage OCR tracks server size (`N / 60` players) **only when about to Join** that server (not during full-list inventory)
+- Size persisted locally, in Discord digests, and via API ingest to `_AeroMulti_servers`
 
 **Notable v2.1 behavior:**
 
@@ -90,4 +111,4 @@ Legacy scanner code remains under `AeroMulti/` for reference; prefer **AeroMulti
 
 ## Version
 
-Current version: **v2.1.0**
+Current version: **v2.2.3**
